@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   Dimensions,
+  Switch,
   Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
@@ -12,7 +13,7 @@ import { colors } from "../../global/colors";
 import { useEffect, useState } from "react";
 import { useSignupMutation } from "../../service/authApi";
 import { setUserEmail, setLocalId } from "../../store/slices/userSlice";
-import { saveSession } from "../../db";
+import { saveSession, clearSession } from "../../db";
 
 const textInputWidth = Dimensions.get("window").width * 0.7;
 
@@ -20,6 +21,7 @@ const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [persistSession, setPersistSession] = useState(false);
   const [triggerSignup, result] = useSignupMutation();
 
   const dispatch = useDispatch();
@@ -29,17 +31,18 @@ const SignupScreen = ({ navigation }) => {
       Alert.alert("Error", "Todos los campos son obligatorios");
       return false;
     }
-    
     if (password !== confirmPassword) {
       Alert.alert("Error", "Las contraseñas no coinciden");
       return false;
     }
-    
     if (password.length < 6) {
       Alert.alert("Error", "La contraseña debe tener al menos 6 caracteres");
       return false;
     }
-    
+    if (!email.includes("@")) {
+      Alert.alert("Error", "Ingresa un email válido");
+      return false;
+    }
     return true;
   };
 
@@ -53,13 +56,17 @@ const SignupScreen = ({ navigation }) => {
     (async () => {
       if (result.status === "fulfilled") {
         try {
-          await saveSession(result.data.localId, result.data.email);
-          dispatch(setUserEmail(result.data.email));
-          dispatch(setLocalId(result.data.localId));
-          Alert.alert("Éxito", "Cuenta creada exitosamente");
+          if (persistSession) {
+            await saveSession(result.data.localId, result.data.email);
+            dispatch(setUserEmail(result.data.email));
+            dispatch(setLocalId(result.data.localId));
+          } else {
+            await clearSession();
+            dispatch(setUserEmail(result.data.email));
+            dispatch(setLocalId(result.data.localId));
+          }
         } catch (error) {
           console.log("Error al guardar sesión:", error);
-          Alert.alert("Error", "Error al crear la cuenta");
         }
       } else if (result.status === "rejected") {
         Alert.alert("Error", "Error al crear la cuenta. Verifica tus datos.");
@@ -79,6 +86,7 @@ const SignupScreen = ({ navigation }) => {
           style={styles.textInput}
           keyboardType="email-address"
           autoCapitalize="none"
+          value={email}
         />
         <TextInput
           onChangeText={(text) => setPassword(text)}
@@ -86,6 +94,7 @@ const SignupScreen = ({ navigation }) => {
           placeholder="Contraseña"
           style={styles.textInput}
           secureTextEntry
+          value={password}
         />
         <TextInput
           onChangeText={(text) => setConfirmPassword(text)}
@@ -93,6 +102,7 @@ const SignupScreen = ({ navigation }) => {
           placeholder="Confirmar Contraseña"
           style={styles.textInput}
           secureTextEntry
+          value={confirmPassword}
         />
       </View>
       <View style={styles.footTextContainer}>
@@ -104,7 +114,7 @@ const SignupScreen = ({ navigation }) => {
               ...styles.underLineText,
             }}
           >
-            ¡Inicia sesión!
+            Inicia sesión aquí
           </Text>
         </Pressable>
       </View>
@@ -112,6 +122,14 @@ const SignupScreen = ({ navigation }) => {
       <Pressable style={styles.btn} onPress={onSubmit}>
         <Text style={styles.btnText}>Registrarse</Text>
       </Pressable>
+      <View style={styles.rememberMe}>
+        <Text style={{ color: colors.white }}>¿Recordar sesión?</Text>
+        <Switch
+          onValueChange={() => setPersistSession(!persistSession)}
+          value={persistSession}
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+        />
+      </View>
     </View>
   );
 };
@@ -182,5 +200,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.red,
     borderRadius: 8,
     color: colors.white,
+  },
+  rememberMe: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
   },
 });

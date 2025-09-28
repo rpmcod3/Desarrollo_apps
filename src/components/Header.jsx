@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { colors } from '../global/colors'
 
-const Header = ({title, subtitle}) => {
+const Header = ({title}) => {
   return (
     <View style ={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+      <Text style={styles.title}> {title}</Text>
     </View>
   )
 }
@@ -22,10 +21,5 @@ const styles = StyleSheet.create({
     title :{
         fontSize: 25,
         color: colors.White
-    },
-    subtitle: {
-        fontSize: 16,
-        color: colors.White,
-        marginTop: 4
     }
 })

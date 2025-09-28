@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { CartScreen } from "../../screens"
 import {LoginScreen, SignupScreen} from '../../screens'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator  ()
 
 const AuthStackNavigator =() => {
     return (

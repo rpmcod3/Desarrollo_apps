@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View, Image } from "react-native";
+import { FlatList, StyleSheet, Text, View, Image, Pressable } from "react-native";
 
 import Flatcard from "../../components/Flatcard";
 import { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const ProductsScreen = ({ navigation, route }) => {
     isLoading,
     error,
   } = useGetProductsByCategoryQuery(category.toLowerCase());
-  console.log = { productsFilteredByCategory, isLoading, error };
+
 
   const dispatch = useDispatch();
 
@@ -33,11 +33,11 @@ const ProductsScreen = ({ navigation, route }) => {
   };
 
   const renderProductsItem = ({ item }) => (
-    <view>
-      <Pressable onPress={() => handleSelectProduct(item)}>
+    <View>
+      <Pressable onPress={() => handleSelectedProduct(item)}>
         <Text>{item.title}</Text>
       </Pressable>
-    </view>
+    </View>
   );
 
   useEffect(() => {

@@ -7,7 +7,7 @@ const Search = ({setKeyword}) => {
   return (
     <View style={styles.searchContainer}>
       <TextInput 
-      Placeholder = 'Buscar producto' style={styles.searchInput}
+      placeholder = 'Buscar producto' style={styles.searchInput}
       onChangeText={(text) => {setKeyword(text)}}
        />
        <Icon name='search' size={20} color={colors.White} />
