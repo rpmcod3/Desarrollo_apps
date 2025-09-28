@@ -1,36 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
-import categories from './src/data/Categories.json'
+import { StyleSheet } from 'react-native';
 import Header from './src/components/Header';
-import Flatcard from './src/components/Flatcard';
+import { colors } from './src/global/colors';
+
+import { useEffect, useState   } from 'react';
+
+import MainNavigator from "./src/navigation/MainNavigator";
+import { Provider } from 'react-redux';
+import { store } from './src/store';
+
+
 
 export default function App() {
-  const renderCategoryItem = ({item}) => (
-  <Flatcard>
-    <Text> {item.title} </Text> 
-    <Image width={100} height={60} source={{uri: item.image}} resizeMode = 'contain'/>
-  </Flatcard>
-  )
-  return (
-    <View style={styles.container}>
-      <Header title= "Cam e-commerce"/>
-      <FlatList 
-      data={categories}
-      renderItem={renderCategoryItem}
-      keyExtractor={item=>item.id}
-      />
+  const [categorySelected, setCategorySelected] = useState('')
 
-      
-      <StatusBar style="auto" />
-    </View>
+
+ return (
+  <Provider store ={store} > 
+  
+  <StatusBar style="light" />
+  <MainNavigator/>
+   
+    </Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    
-  },
+
 });
 

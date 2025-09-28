@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "title": "iPhone",
+        "description": "",
+        "price": 549,
+        "discountPercentage": 12.96,
+        "rating": 4.69,
+        "stock": 94,
+        "brand": "Apple",
+        "category": "Mirrorless",
+        "thumbnail": "",
+        "images": ""	
+      },
+      {
+        "id": 2,
+        "title": " Leica",
+        "description": "",
+        "price": 899,
+        "discountPercentage": 17.94,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple",
+        "category": "Mirrorless",
+        "thumbnail": "",
+        "images": ""
+      },
+      {
+        "id": 3,
+        "title": "Nikon ",
+        "description": "",
+        "price": 1249,
+        "discountPercentage": 15.46,
+        "rating": 4.09,
+        "stock": 36,
+        "brand": "Samsung",
+        "category": "Analogic",
+        "thumbnail": "",
+        "images": ""
+      },
+      {
+        "id": 4,
+        "title": "Canon",
+        "description": "",
+        "price": 280,
+        "discountPercentage": 17.91,
+        "rating": 4.3,
+        "stock": 123,
+        "brand": "OPPO",
+        "category": "Analogic",
+        "thumbnail": "",
+        "images": ""
+      },
+      {
+        "id": 5,
+        "title": "Canon Eos",
+        "description": "",
+        "price": 499,
+        "discountPercentage": 10.58,
+        "rating": 4.09,
+        "stock": 32,
+        "brand": "Huawei",
+        "category": "Reflex",
+         "images": ""
+      }
+]
