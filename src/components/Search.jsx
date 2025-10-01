@@ -24,12 +24,20 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         backgroundColor: colors.White,
         padding: 10,
+        margin: 10,
         borderRadius: 10,
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
     },
     searchInput: {
         flex: 1,
         padding: 10,
         borderRadius: 10,
+        fontSize: 16,
+        color: colors.black,
     },
 })
 

@@ -7,10 +7,12 @@ const Stack = createNativeStackNavigator  ()
 const CartStackNavigator =() => {
     return (
         <Stack.Navigator
-        initialRouteName= "Cart">
-          
-            
-     <Stack.Screen name="Cart" component={CartScreen} />
+            initialRouteName="CartScreen"
+            screenOptions={{
+                header: () => <Header title="Mycammapp" subtitle="Carrito" />
+            }}
+        >
+            <Stack.Screen name="CartScreen" component={CartScreen} />
         </Stack.Navigator>
     )
 }

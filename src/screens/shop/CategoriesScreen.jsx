@@ -20,7 +20,10 @@ console.log ("trayendo cat desde firebase",categories, isLoading, error)
 const dispatch = useDispatch()
 
 const handleSelectCategory = (category) => { 
+  console.log("Category selected:", category);
+  console.log("Dispatching setCategorySelected with:", category);
   dispatch(setCategorySelected(category))
+  console.log("Navigating to Products screen");
   navigation.navigate("Products")
 }
 
